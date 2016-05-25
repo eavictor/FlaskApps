@@ -1,0 +1,359 @@
+{% extends "root/base.html" %}
+
+{% block title %}
+    eavictor's personal site
+{% endblock %}
+
+{% block body %}
+    <h1 style="margin-top: 30px;">
+        <img src="{{ url_for('.static', filename='images/winbox.png') }}" style="height: 50px; width: 50px;">
+        eavictor's personal site
+    </h1>
+    <a href="{{ url_for('geoip.index') }}" class="btn btn-block btn-primary" style="margin-top: 20px;">
+        GeoLocation IP Address List API
+    </a>
+    <h3>
+        Source: <a href="https://db-ip.com/">db-ip.com</a>
+        <br>
+        Update:  00:00 UTC on the 3rd day of every month
+    </h3>
+    <p>
+        English:<br>
+        You can get specific country's IP addresses to create dynamic routing rules for unblocking contents (like DMM or netflix),
+        blacklist unwanted traffic by using this API<br>
+        中文:<br>
+        你可以使用這個API來取得特定國家的IP列表，制定特殊路由突破特定網站的封鎖(像是DMM或netflix等)，或是封鎖來自特定國家的連線。<br>
+        日本語:<br>
+        このAPIは特定国のIPアドレスリストを取得することができ、特殊ルーティングテーブルを設置しサイトの封鎖を突破するか(DMMとnetflixとか)、
+        特定国から来たトラフィックを遮断することもできます。
+    </p>
+    <a href="{{ url_for('ads.index') }}" class="btn btn-block btn-primary" style="margin-top: 20px;">
+        AdServer IP Address List API
+    </a>
+    <h3>
+        Source: <a href="https://pgl.yoyo.org/">pgl.yoyo.org</a>
+        <br>
+        Update: 12:00 UTC on every Sunday
+    </h3>
+    <p>
+        English:<br>
+        Sometimes AdBlock plugins still missed some unwanted ads.
+        Those ads not only eat extra bandwidth and memory but may come with trojan.
+        I suggest that you can add a firewall rule in your router to block the traffic from those Ad Servers.
+        <br>
+        中文:<br>
+        有時候AdBlock之類的套件會漏掉一些我們不想看到的廣告。
+        這些廣告不僅會吃掉額外的流量和記憶體空間，有時候還會夾帶木馬入侵電腦。
+        建議可以用這個API在防火牆中增加一條規則過濾掉來自廣告伺服器的網路流量。
+        <br>
+        日本語:<br>
+        時々AdBlockなどのプラグインが広告を逃してしまいます。
+        広告はパソコンのメモリーとインターネットの消費量とを大幅に増加させるだけでなく、広告ウイルスを感染するケースも時々耳にします。
+        ルーターにファイアウォール規則を設定し、広告サーバーを遮断することがおすすめです。
+    </p>
+{% endblock %}
+
+{% block body2 %}
+    <div style="display: none;" id="hidden_div">
+        <h1 class="text-primary">About Me</h1>
+        <h2>eavictor</h2>
+        <h3>A Gamer,</h3>
+        <p>
+            I love to play FPS games, watch animes, movies and ... that kind of videos.<br>
+            If you want to find me, you may go <a href="https://www.gflclan.ru/">GFL Clan (RU)</a> and see a bunch of autistic dudes spamming their mic.
+        </p>
+        <h3>A Believer,</h3>
+        <p>
+            The reason I work is for money, don't say I should go chase the dream. My dream is getting money without go to work.
+        </p>
+        <h3>A Programmer,</h3>
+        <p>
+            I wrote this site and two APIs listed on the left side, I'm not a programmer !? ( ͡° ͜ʖ ͡°)
+        </p>
+        <h3> and A Faggot!</h3>
+        <p>
+            You Have Autism? [Y/n] y
+        </p>
+        <h1 class="text-primary">Skills and Experiences</h1>
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="color: #000000;">
+            <div class="panel panel-primary">
+                <div class="panel-heading" role="tab" id="heading1">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                            Back-end Programming Languages
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
+                    <div class="panel-body">
+                        <table class="table table-hover table-bordered table-condensed">
+                            <thead>
+                                <tr class="info">
+                                    <th>#</th>
+                                    <th>Language</th>
+                                    <th>Frameworks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Python3</td>
+                                    <td>Django<br>Flas(+Jinja2)<br>SQLAlchemy</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Java</td>
+                                    <td>Hibernate<br>Spring<br>MyBatis</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Go</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading" role="tab" id="heading2">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                            Front-end Programming Languages
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+                    <div class="panel-body">
+                        <table class="table table-hover table-bordered table-condensed">
+                            <thead>
+                                <tr class="info">
+                                    <th>#</th>
+                                    <th>Language</th>
+                                    <th>Frameworks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>JavaScript</td>
+                                    <td>jQuery<br>AngularJS (learning)</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>CSS</td>
+                                    <td>Bootstrap</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading" role="tab" id="heading3">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                            Databases
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+                    <div class="panel-body">
+                        <table class="table table-hover table-bordered table-condensed">
+                            <thead>
+                                <tr class="info">
+                                    <th>#</th>
+                                    <th>Brand</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Oracle Database</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Microsoft SQL Server</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>MySQL</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>MariaDB</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading" role="tab" id="heading4">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                            Operating Systems
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
+                    <div class="panel-body">
+                        <table class="table table-hover table-bordered table-condensed">
+                            <thead>
+                                <tr class="info">
+                                    <th>#</th>
+                                    <th>System</th>
+                                    <th>Distribution / Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Linux</td>
+                                    <td>Ubuntu Server (prefer)<br>Debian<br>Kali Linux<br>CentOS<br>Fedora</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>BSD</td>
+                                    <td>FreeBSD</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>OS X</td>
+                                    <td>10.5~10.11</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Windows</td>
+                                    <td>Who can't use Windows !? ( ͡° ͜ʖ ͡°)<br>Windows 95~Windows 10<br>Windows Server 2000~Windows Server 2012</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>MikroTik RouterOS</td>
+                                    <td>My Main Router and Firewall, I also created a dynamic VPN system based on RouterOS</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading" role="tab" id="heading5">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                            Integrated Development Environments and other tools
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
+                    <div class="panel-body">
+                        <table class="table table-hover table-bordered table-condensed">
+                            <thead>
+                                <tr class="info">
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Useage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Eclipse</td>
+                                    <td>JavaSE & JavaEE Development<br>Go Lang Development<br>Python3 Development</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>PyCharm</td>
+                                    <td>Python3 Development</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>GitHub</td>
+                                    <td>where I store my code</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>SmartFTP</td>
+                                    <td>Manage Servers and file transfer</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Transmit</td>
+                                    <td>file transfer</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading" role="tab" id="heading6">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                            Hardware and others
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
+                    <div class="panel-body">
+                        <table class="table table-hover table-bordered table-condensed">
+                            <thead>
+                                <tr class="info">
+                                    <th>#</th>
+                                    <th>System (service)</th>
+                                    <th>Combined with</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Hinet MOD lock</td>
+                                    <td>Linux<br>Raspberry Pi<br>RouterOS<br>Python3</td>
+                                    <td>
+                                        Hinet MOD access lock. ping specific devices every 30 seconds.<br>
+                                        if all rules match, enable ethernet to unlock, else disable ethernet and lock access.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>IBM Enterprise Service Bus</td>
+                                    <td>JavaEE</td>
+                                    <td>
+                                        Responsible for part of the following sub systems:<br>
+                                        1. calculate the risk of customer (Insurance Association) (logic and JMS API).<br>
+                                        2. calculate the risk of customer (Group Insurance) (logic and JMS API).<br>
+                                        3. calculate the risk of customer (Travel Insurance) (logic and JMS API).<br>
+                                        4. High Risk level calculation (Combine each systems) (logic and JMS API).<br>
+                                        5. High Risk customer searching system (check if the customer is high risk by entering their social number) (logic and JMS API).<br>
+                                        6. Debug Tool for all systems by capturing JSON Strings and display data.
+                                        7. Monitor Tool for system 1~4 (JMS Listener)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Dynamic VPN Routing System</td>
+                                    <td>RouterOS<br>Python3 + Flask + Flask-SQLAlchemy + APScheduler<br>(previous version is written in Java)</td>
+                                    <td>Connect to one VPN server, access the whole world.<br>For example, connect to the server located in Taiwan, and you can access DMM and netflix at the same time.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="position: fixed; bottom: 25px; right: 50px;" id="faggot">
+        <h1 style="text-align: right;">
+            A Gamer,<br>
+            A Believer,<br>
+            A Programmer,<br>
+            and <strong>A Faggot!</strong>
+        </h1>
+    </div>
+    <script type="text/javascript">
+        $('#faggot').click(function() {
+            $('#hidden_div').toggle();
+        });
+    </script>
+{% endblock %}

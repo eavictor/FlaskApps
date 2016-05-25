@@ -1,0 +1,40 @@
+<h4>Request Example:</h4>
+<pre>
+    <code>
+        http://www.example.com/geoip/api/routeos/ip_list/both/TW,JP
+    </code>
+</pre>
+<h4>Response Example:</h4>
+<pre>
+    <code>
+        /ip firewall address-list
+        remove [/ip firewall address-list find list=TW]
+        add address=1.160.0.0/12 list=TW
+        add address=1.200.0.0/16 list=TW
+        ...more...
+        /ipv6 firewall address-list
+        remove [/ipv6 firewall address-list find list=TW]
+        add address=2001:238::/32 list=TW
+        add address=2001:288::/32 list=TW
+        ...more...
+        /ip firewall address-list
+        remove [/ip firewall address-list find list=JP]
+        add address=1.0.16.0/20 list=JP
+        add address=1.0.64.0/18 list=JP
+        ...more...
+        /ipv6 firewall address-list
+        remove [/ipv6 firewall address-list find list=JP]
+        add address=2001:200::/32 list=JP
+        add address=2001:218:2000::/36 list=JP
+        ...more...
+
+    </code>
+</pre>
+<h4>Example command to work in RouterOS</h4>
+<pre>
+    <code>
+        /tool fetch url="http://www.example.com/geoip/api/routeros/ip_list/both/TW,JP"
+        /import file-name=TW,JP
+        /file remove TW,JP
+    </code>
+</pre>

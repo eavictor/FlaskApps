@@ -1,0 +1,39 @@
+<h4>Request Example:</h4>
+<pre>
+    <code>
+        Methods: GET / POST
+        Content-Type: application/json
+        User-Agent: any
+        Request:
+            {
+                "request_ips": [
+                    "168.95.1.1",
+                    "2001:b000:168::1"
+                ]
+            }
+    </code>
+</pre>
+<h4>Response Example:</h4>
+<pre>
+    <code>
+        Methods: GET / POST
+        Content-Type: application/json
+        User-Agent: any
+        Response:
+            {
+                "answer": [
+                    {
+                        "country": "TW",
+                        "ip_version": "ipv4",
+                        "requested_ip": "168.95.1.1"
+                    },
+                    {
+                        "country": "TW",
+                        "ip_version": "ipv6",
+                        "requested_ip": "2001:b000:168::1"
+                    }
+                ],
+                "data_provider": "db-ip.com"
+            }
+    </code>
+</pre>

@@ -1,0 +1,59 @@
+<table class="table table-hover table-bordered" style="background-color: #F0F0F0; color: #000000;">
+    <thead>
+        <tr>
+            <th>Request Parameter</th>
+            <th>JSON Format</th>
+            <th>Variable</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                ip_version
+            </td>
+            <td>
+                string:string
+            </td>
+            <td>
+                ipv4<br>
+                ipv6<br>
+                both
+            </td>
+            <td>
+                <strong>ipv4</strong>: response only contains IPv4 lists.<br>
+                <strong>ipv6</strong>: response only contains IPv6 lists.<br>
+                <strong>both</strong>: response contains both IPv4 and IPv6 lists.
+            </td>
+        </tr>
+        <tr>
+            <td>ip_format</td>
+            <td>
+                string:string
+            </td>
+            <td>
+                cidr<br>
+                int_range<br>
+                str_range
+            </td>
+            <td>
+                <strong>cidr</strong>: response Classless Inter Domain Routing format.<br>
+                <strong>int_range</strong>: response IP Range in Integer format.<br>
+                <strong>str_range</strong>: response IP Range in String format.
+            </td>
+        </tr>
+        <tr>
+            <td>countries</td>
+            <td>
+                string:[string-array]
+            </td>
+            <td>
+                2 digit ISO CODES listed in<br>
+                <a href="https://countrycode.org/">https://countrycode.org/</a>
+            </td>
+            <td>
+                request the countries IP Lists
+            </td>
+        </tr>
+    </tbody>
+    </table>

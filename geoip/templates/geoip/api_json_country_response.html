@@ -1,0 +1,75 @@
+<table class="table table-hover table-bordered" style="background-color: #F0F0F0; color: #000000;">
+    <thead>
+        <tr>
+            <th>Request Parameter</th>
+            <th>JSON Format</th>
+            <th>Variable</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                answer
+            </td>
+            <td>
+                string:[object-array]
+            </td>
+            <td>
+                country<br>
+                ip_version<br>
+                requested_ip
+            </td>
+            <td>
+                <strong>country</strong>: this IP belongs to which country.<br>
+                <strong>ip_version</strong>: determine it's IPv4 or IPv6.<br>
+                <strong>requested_ip</strong>: one of the IP in requested_ips
+            </td>
+        </tr>
+        <tr>
+            <td>
+                country
+            </td>
+            <td>
+                string:string
+            </td>
+            <td>
+                2 digit ISO CODES listed in<br>
+                <a href="https://countrycode.org/">https://countrycode.org/</a>
+            </td>
+            <td>
+                the IP's country code
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ip_version
+            </td>
+            <td>
+                string:string
+            </td>
+            <td>
+                ipv4<br>
+                ipv6
+            </td>
+            <td>
+                <strong>ipv4</strong>: the requested IP is IPv4<br>
+                <strong>ipv6</strong>: the requested IP is IPv6
+            </td>
+        </tr>
+        <tr>
+            <td>
+                data_provider
+            </td>
+            <td>
+                string:string
+            </td>
+            <td>
+                db-ip.com
+            </td>
+            <td>
+                Data Provider
+            </td>
+        </tr>
+    </tbody>
+    </table>

@@ -1,0 +1,29 @@
+{% extends "ads/base.html" %}
+
+{% block title %}
+ADS API page
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-primary" style="text-align: center;">RESTful API Document</h1>
+
+
+    <h2>JSON</h2>
+    <br>
+    <h3>Request IP Lists</h3>
+    <h3>URL: http://www.eavictor.com/ads/api/json/ip_list/</h3>
+    <h3>METHODS: POST</h3>
+    {% include "ads/api_json_list_request.html" %}
+    {% include "ads/api_json_list_response.html" %}
+    {% include "ads/api_json_list_example.html" %}
+    <br>
+    <br>
+    <h2>MikroTik RouterOS</h2>
+    <br>
+    <h3>Countries IP List</h3>
+    <h3>URL: http://www.eavictor.com/ads/api/routeros/ip_list/&lt;ip_version&gt;/ad_server_list</h3>
+    <h3>METHODS: GET(URL control)</h3>
+    {% include "ads/api_routeros_list_request.html" %}
+    {% include "ads/api_routeros_list_response.html" %}
+    {% include "ads/api_routeros_list_example.html" %}
+{% endblock %}

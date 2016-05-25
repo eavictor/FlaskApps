@@ -1,0 +1,39 @@
+<h4>Request Example:</h4>
+<pre>
+    <code>
+        http://www.example.com/geoip/api/routeos/ip_list/both/TW,JP
+    </code>
+</pre>
+<h4>Response Example:</h4>
+<pre>
+    <code>
+        /ip firewall address-list
+        remove [/ip firewall address-list find list=AdServer]
+        add address=1.160.0.0/12 list=AdServer
+        add address=1.200.0.0/16 list=AdServer
+        ...more...
+        /ipv6 firewall address-list
+        remove [/ipv6 firewall address-list find list=AdServer]
+        add address=2001:238::/32 list=AdServer
+        add address=2001:288::/32 list=AdServer
+        ...more...
+
+    </code>
+</pre>
+<h4>Example command to work in RouterOS</h4>
+<pre>
+    <code>
+        /tool fetch url="http://www.example.com/ads/api/routeros/ip_list/both/ad_server_list"
+        /import file-name=ad_server_list
+        /file remove ad_server_list
+    </code>
+</pre>
+<h4>Example Firewall Rules:</h4>
+<pre>
+    <code>
+        /ip firewall filter
+        add chain=forward action=reject reject-with=tcp-reset protocol=tcp dst-address-list=AdServer
+        /ipv6 firewall filter
+        add chain=forward action=reject reject-with=tcp-reset protocol=tcp dst-address-list=AdServer
+    </code>
+</pre>

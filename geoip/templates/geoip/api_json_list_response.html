@@ -1,0 +1,85 @@
+<table class="table table-hover table-bordered" style="background-color: #F0F0F0; color: #000000;">
+    <thead>
+        <tr>
+            <th>Response Parameter</th>
+            <th>JSON Format</th>
+            <th>Variable</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                2 digit ISO CODES listed in<br>
+                <a href="https://countrycode.org/">https://countrycode.org/</a>
+            </td>
+            <td>
+                string:objects
+            </td>
+            <td>
+                ipv4<br>
+                ipv6
+            </td>
+            <td>
+                According to request, this field may contains IPv4, IPv6 or both.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                (str_range & int_range)<br>
+                ipv4<br>
+                ipv6
+            </td>
+            <td>
+                string:[object-array]
+            </td>
+            <td>
+                ip_start<br>
+                ip_end
+            </td>
+            <td>
+                <strong>ip_start</strong>: first IP address of the IP Block.<br>
+                <strong>ip_end</strong>: last IP address of the IP Block.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                (str_range & int_range)<br>
+                ip_start<br>
+                ip_end
+            </td>
+            <td>
+                string:string
+            </td>
+            <td>
+                single IP address
+            </td>
+            <td>
+                <strong>ip_start</strong>: first IP address of the IP Block.<br>
+                <strong>ip_end</strong>: last IP address of the IP Block.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                (cidr)<br>
+                ipv4<br>
+                ipv6
+            </td>
+            <td>
+                string:[string-array]
+            </td>
+            <td>
+                CIDR IP Block
+            </td>
+            <td>
+                IP Blocks in Classless Inter Domain Routing format.
+            </td>
+        </tr>
+        <tr>
+            <td>data_provider</td>
+            <td>string:string</td>
+            <td>db-ip.com</td>
+            <td>Data Provider</td>
+        </tr>
+    </tbody>
+    </table>

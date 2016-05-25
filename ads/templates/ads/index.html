@@ -1,0 +1,111 @@
+{% extends "ads/base.html" %}
+
+{% block title %}
+ADS WEB Interface
+{% endblock %}
+
+{% block body %}
+    <!-- Notice clients the data is from DB-IP.com -->
+    <div class="alert alert-warning alert-dismissible fade in" role="alert" style="margin-top: 20px;" id="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="close" id="closeAlert">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Notice!</strong> We use pgl.yoyo.org's data, please visit their site for more information. <a href="https://pgl.yoyo.org/">pgl.yoyo.org</a>
+    </div>
+    <a href="{{ url_for('.api_page') }}">
+        <h1 class="alert alert-info" style="text-align: center;">Click here for RESTful API</h1>
+    </a>
+
+
+    <!-- simulate form post, send via AJAX -->
+    <!-- JSON or RouterOS Command -->
+    <div class="form-group">
+        <label for="select-output-format">Output Format:</label>
+        <div id="select-output-format">
+            <label class="radio-inline">
+                <input type="radio" name="output_format" value="json_pretty" checked> JSON-Pretty
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="output_format" value="json_compact"> JSON-Compact
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="output_format" value="RouterOS"> RouterOS
+            </label>
+        </div>
+    </div>
+    <!-- IPv4 , IPv6 or BOTH -->
+    <div class="form-group">
+        <label for="select-ip-version">IP Version:</label>
+        <div id="select-ip-version">
+            <label class="radio-inline">
+                <input type="radio" name="ip_version" value="both" checked> BOTH
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="ip_version" value="ipv4"> IPv4
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="ip_version" value="ipv6"> IPv6
+            </label>
+        </div>
+    </div>
+    <!-- IP Format -->
+    <div class="form-group">
+        <label for="select-ip-format">IP Format:</label>
+        <div id="select-ip-format">
+            <label class="radio-inline">
+                <input type="radio" name="ip_format" value="str" checked> String
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="ip_format" value="int"> Integer
+            </label>
+        </div>
+    </div>
+    <!-- Button -->
+    <div style="text-align: center">
+        <button class="btn btn-lg btn-primary" type="button" id="send-request">Get The List</button>
+    </div>
+    <!-- simulate form post, send via AJAX -->
+
+    <!-- area for display response -->
+    <div id="display_div" style="display: none;">
+        <label for="display_area">AdServers List:</label>
+        <textarea class="form-control" id="display_area" rows="1"></textarea>
+    </div>
+
+    <script content="text/javascript">
+
+        {# function : close DB-IP.com alert #}
+        $('#closeAlert').click(function() {
+            $('#alert').alert('close');
+        });
+
+        {# function : submit via AJAX #}
+        $('#send-request').click(function() {
+            {# get return output style JSON(pretty) JSON(compact) RouterOS #}
+            var output_format = $('input[type="radio"][name="output_format"]:checked').val();
+            {# get IP Version #}
+            var ip_version = $('input[type="radio"][name="ip_version"]:checked').val();
+            {# get IP Format #}
+            var ip_format = $('input[type="radio"][name="ip_format"]:checked').val();
+            {# send AJAX request #}
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                url: '/ads/web_request',
+                data: JSON.stringify({
+                    'output_format': output_format,
+                    'ip_version': ip_version,
+                    'ip_format': ip_format
+                }),
+                success: function(response) {
+                    $('#display_div').css('display', '');
+                    $('#display_area').attr('rows','25').val(response);
+                },
+                error: function(error) {
+                    $('#display_div').css('display', '');
+                    $('#display_area').attr('rows','25').val(error);
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "geoip/base.html" %}
+
+{% block title %}
+GEOIP API page
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-primary" style="text-align: center;">RESTful API Document</h1>
+
+
+    <h2>JSON</h2>
+    <br>
+    <h3>Request IP Lists</h3>
+    <h3>URL: http://www.eavictor.com/geoip/api/json/ip_list/</h3>
+    <h3>METHODS: POST</h3>
+    {% include "geoip/api_json_list_request.html" %}
+    {% include "geoip/api_json_list_response.html" %}
+    {% include "geoip/api_json_list_example.html" %}
+    <br>
+    <h3>Request IP's information</h3>
+    <h3>URL: http://www.eavictor.com/geoip/api/json/country/</h3>
+    <h3>METHODS: POST</h3>
+    {% include "geoip/api_json_country_request.html" %}
+    {% include "geoip/api_json_country_response.html" %}
+    {% include "geoip/api_json_country_example.html" %}
+    <br>
+    <br>
+    <h2>MikroTik RouterOS</h2>
+    <br>
+    <h3>Countries IP List</h3>
+    <h3>URL: http://www.eavictor.com/geoip/api/routeros/ip_list/&lt;ip_version&gt;/&lt;country_list&gt;</h3>
+    <h3>METHODS: GET(URL control)</h3>
+    {% include "geoip/api_routeros_list_request.html" %}
+    {% include "geoip/api_routeros_list_response.html" %}
+    {% include "geoip/api_routeros_list_example.html" %}
+{% endblock %}

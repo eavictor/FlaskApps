@@ -1,0 +1,54 @@
+<table class="table table-hover table-bordered" style="background-color: #F0F0F0; color: #000000;">
+    <thead>
+        <tr>
+            <th>
+                Response command
+            </th>
+            <th>
+                Description
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                /ip firewall address-list<br>
+                remove[/ip firewall address-list=??]
+            </td>
+            <td>
+                remove current IPv4 address-list in RouterOS<br>
+                <strong>??</strong>: the country code
+            </td>
+        </tr>
+        <tr>
+            <td>
+                add address=xxx.xxx.xxx.xxx/xx list=??
+            </td>
+            <td>
+                add new address into RouterOS's IPv4 address-list<br>
+                <strong>xxx.xxx.xxx.xxx/xx</strong>: IPv4 CIDR<br>
+                <strong>??</strong>: the country code
+            </td>
+        </tr>
+        <tr>
+            <td>
+                /ipv6 firewall address-list<br>
+                remove[/ipv6 firewall address-list=??]
+            </td>
+            <td>
+                remove current IPv6 address-list in RouterOS<br>
+                <strong>??</strong>: the country code
+            </td>
+        </tr>
+        <tr>
+            <td>
+                add address=oooo:oooo::/oo list=??
+            </td>
+            <td>
+                add new address into RouterOS's IPv6 address-list<br>
+                <strong>oooo:oooo::/oo</strong>: IPv6 CIDR<br>
+                <strong>??</strong>: the country code
+            </td>
+        </tr>
+    </tbody>
+</table>
