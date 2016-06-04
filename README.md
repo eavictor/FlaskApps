@@ -1,6 +1,8 @@
 # FlaskApps
-### GeoIP list for routers with
-### Ad Servers list for routers
+### contain apps:
+### 1. geoip: GeoIP list for routers
+### 2. ads: Ad Servers list for routers
+### 3. root: index page
 
 Feature list:
 

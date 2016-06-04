@@ -23,7 +23,8 @@ def api_ad_server_list():
     ip_format = content['ip_format']
     return jsonify(logic_json.ad_server_list(ip_version, ip_format))
 
-@ads.route('/api/routeros/ip_list/<ip_version>/ad_server_list')
+
+@ads.route('/api/routeros/ip_list/<string:ip_version>/ad_server_list')
 def api_routeros(ip_version):
     return Response(logic_routeros.gen_commands(ip_version), content_type='text/plain')
 

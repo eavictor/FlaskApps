@@ -33,7 +33,7 @@ def api_country():
     return jsonify(logic_json.which_country(request_ips))
 
 
-@geoip.route('/api/routeros/ip_list/<ip_version>/<country_list>')
+@geoip.route('/api/routeros/ip_list/<string:ip_version>/<string:country_list>')
 def api_routeros(ip_version, country_list):
     return Response(logic_routeros.gen_commands(ip_version, country_list), content_type='text/plain')
 
