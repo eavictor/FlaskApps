@@ -58,7 +58,7 @@ def read_csv_and_update_database():
                 print('no insert ', end='')
                 print(row)
             counter += 1
-            if counter%100 == 0:
+            if counter % 100 == 0:
                 db.session.commit()
                 print(datetime.now(), end='')
                 print(' geoip models_refresh.read_csv_and_update_database(): insert data into database ', end='')
@@ -98,4 +98,3 @@ def has_data():
     except SQLAlchemyError:
         print('geoip models_refresh.has_data(): return False (SQLAlchemyError)')
         return False
-

@@ -30,9 +30,9 @@ def fetch_data():
             db.session.add(Ipv6AdServerStr(str(ip)))
             db.session.add(Ipv6AdServerInt(int(ip)))
         counter += 1
-        if counter%100 == 0:
+        if counter % 100 == 0:
             db.session.commit()
-            print(datetime.now, end='')
+            print(datetime.now(), end='')
             print(' ads models_refresh.fetch_data(): insert data into database ', end='')
             print(counter)
     db.session.commit()

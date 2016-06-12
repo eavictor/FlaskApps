@@ -1,0 +1,114 @@
+{% extends "geoip/base.html" %}
+
+{% block title %}
+ConoHaカスタムOS助手
+{% endblock %}
+
+{% block body %}
+    <h1 style="text-align: center;">ConoHaカスタムOS助手</h1>
+
+    <!-- simulate form post, send via AJAX -->
+    <!-- ConoHa region selector -->
+    <div class="form-group" style="margin-top: 20px;">
+        <label for="region">リージョン:</label>
+        <div id="region">
+            <label class="radio-inline">
+                <input type="radio" name="region" value="JP" checked> 東京
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="region" value="SG"> シンガポール
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="region" value="US"> アメリカ
+            </label>
+        </div>
+    </div>
+
+    <!-- ConoHa API tenant_id, username and password -->
+    <div class="form-group">
+        <label for="tenant_id">テナントID:</label>
+        <input type="text" class="form-control" name="tenant_id" id="tenant_id" placeholder="テナントID">
+    </div>
+    <div class="form-group">
+        <label for="api_username">APIユーザー:</label>
+        <input type="text" class="form-control" name="api_username" id="api_username" placeholder="ユーザー名">
+    </div>
+    <div class="form-group">
+        <label for="api_password">APIパスワード:</label>
+        <input type="password" class="form-control" name="api_password" id="api_password" placeholder="パスワード">
+    </div>
+
+    <!-- 1. ConoHa Token -->
+    <div class="form-group">
+        <label for="token">トークン:</label>
+        <span id="token_info" style="display: none; color: #FF0000;"></span>
+        <input type="text" class="form-control" name="token" id="token" placeholder="トークン発行を押してください" disabled>
+        <div style="text-align: center">
+            <button type="button" class="btn btn-primary" id="get_token" style="min-width: 250px;">1. トークン発行</button>
+        </div>
+    </div>
+
+    <!-- 2. ConoHa upload ISO -->
+    <div class="form-group">
+        <label for="iso_image_url">ISOイメージURL:</label>
+        <span id="download_iso_info" style="display: none; color: #FF0000;"></span>
+        <input type="text" class="form-control" name="iso_image_url" id="iso_image_url" placeholder="ftp:// ftps:// http:// https:// www.example.com/my.iso">
+        <div style="text-align: center">
+            <button type="button" class="btn btn-danger" id="download_iso" style="min-width: 250px;" data-toggle="tooltip" data-placement="top" title="A and AAAA DNS records only">2. ISOイメージダウンロード</button>
+        </div>
+    </div>
+
+    <!-- 3. ConoHa list uploaded ISOs -->
+    <div class="form-group">
+        <label for="iso_list">ISOイメージリスト:</label>
+        <span id="list_iso_info" style="display: none; color: #FF0000;"></span>
+        <select class="form-control" id="iso_list" style="display: none;"></select>
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-default" id="list_iso" style="min-width: 250px;">3. ISOイメージリスト取得(更新)</button>
+        </div>
+    </div>
+
+    <!-- 4. ConoHa list servers -->
+    <div class="form-group">
+        <label for="server_list">サーバーリスト:</label>
+        <span id="list_servers_info" style="display: none; color: #FF0000;"></span>
+        <select class="form-control" id="server_list" style="display: none;"></select>
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-default" id="list_servers" style="min-width: 250px;">4. サーバーリスト取得(更新)</button>
+        </div>
+    </div>
+
+    <!-- 5. Conoha force selected server stop -->
+    <div class="form-group">
+        <label for="server_command">サーバー起動/停止:</label>
+        <span id="server_command" style="display: none; color: #FF0000"></span><br>
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-primary" id="start_server" style="min-width: 250px">サーバー起動</button>
+            <button type="button" class="btn btn-primary" id="shutdown_server" style="min-width: 250px;">サーバー停止</button>
+            <button type="button" class="btn btn-danger" id="stop_server">強制停止</button>
+        </div>
+    </div>
+
+    <!-- 6. ConoHa mount selected ISO -->
+    <div class="form-group">
+        <label for="mount_iso_info">マウントISO:</label>
+        <span id="mount_iso_info" style="display: none; color: #FF0000;"></span><br>
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-primary" id="mount" style="min-width: 250px;">マウントISO</button>
+            <button type="button" class="btn btn-danger" id="unmount" style="min-width: 250px">アンマウントISO</button>
+        </div>
+    </div>
+
+    <!-- 7. ConoHa VNC url -->
+    <div class="form-group">
+    <label for="vnc_console_info">VNCコンソール:</label>
+    <span id="vnc_console_info" style="display: none; color: #FF0000"></span>
+        <div style="text-align: center; color: #000000">
+            <button type="button" class="btn btn-default" id="open_vnc_console" style="min-width: 250px;">VNCコンソールを開く</button>
+        </div>
+    </div>
+    <!-- simulate form post, send via AJAX -->
+
+    <!-- include javascript for this page -->
+    <script type="text/javascript" src="{{ url_for('.static', filename='js/conoha.js') }}"></script>
+{% endblock %}

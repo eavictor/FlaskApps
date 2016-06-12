@@ -9,6 +9,25 @@
         <img src="{{ url_for('.static', filename='images/winbox.png') }}" style="height: 50px; width: 50px;">
         eavictor's personal site
     </h1>
+    <a href="{{ url_for('conoha.index') }}" class="btn btn-block btn-primary" style="margin-top: 20px;">
+        ConoHAカスタムOS助手
+    </a>
+    <h3>
+        Source: <a href="https://www.conoha.jp/docs/index.html">ConoHa API</a>
+        <br>
+        Update: please report bugs on my <a href="https://github.com/eavictor">GitHub</a> FlaskApps repository
+    </h3>
+    <p>
+        English:<br>
+        push ISO files to new ConoHa by using their API.<br>
+        Pleace notice that ConoHa iso download API only accept A or AAAA DNS resource records, CNAME is not acceptable.<br>
+        中文:<br>
+        利用新ConoHa的提供的API將自己的作業系統ISO推到他們的伺服器上。<br>
+        請注意 ConoHa download iso API 只接受 A 或 AAAA 的 DNS 紀錄，並不接受CNAME紀錄。<br>
+        日本語:<br>
+        ConoHa の ISOイメージダウンロードAPI を利用し、カスタムISOをConoHaにプッシュします。<br>
+        利用できる URL は DNS のAと AAAA のみです、CNAMEは利用不可でご注意ください。
+    </p>
     <a href="{{ url_for('geoip.index') }}" class="btn btn-block btn-primary" style="margin-top: 20px;">
         GeoLocation IP Address List API
     </a>
@@ -73,7 +92,7 @@
         <h3>and A Ching Chong!</h3>
         <p>
             Yes, I speak chinese, japanese and english.<br>
-            So What, I'm dual Ching Chong? ( ͡° ͜ʖ ͡°)
+            So What, I'm dual Ching Chong? ( ͡° ͜ʖ ͡°)<br>
             You Have Autism? [Y/n] y
         </p>
         <h1 class="text-primary">Skills and Experiences</h1>
@@ -100,7 +119,7 @@
                                 <tr>
                                     <td>1</td>
                                     <td>Python3</td>
-                                    <td>Django<br>Flas(+Jinja2)<br>SQLAlchemy</td>
+                                    <td>Django<br>Flask(+Jinja2)<br>SQLAlchemy</td>
                                 </tr>
                                 <tr>
                                     <td>2</td>

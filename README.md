@@ -60,7 +60,7 @@ python -V
 
 09.install python3 packages and uwsgi. If you don't use MariaDB or MySQL, don't install mysqlclient
 ```
-pip install flask flask-sqlalchemy apscheduler mysqlclient uwsgi
+pip install flask flask-sqlalchemy apscheduler mysqlclient requests uwsgi
 ```
 
 10.deactivate virtualenv

@@ -55,7 +55,7 @@ def web_request():
         elif output_format == 'json_compact':
             countries = country_list.split(',')
             data = logic_json.ip_lists(ip_version=ip_version, ip_format=ip_format, countries=countries)
-            return Response(json.dumps(data, separators=(',', ':')), content_type='text/plain')
+            return Response(json.dumps(data, separators=(',', ':')), 200, content_type='text/plain')
         # return RouterOS commands
         elif output_format == 'RouterOS':
             data = logic_routeros.gen_commands(ip_version, country_list)
