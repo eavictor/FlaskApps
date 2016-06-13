@@ -1,5 +1,6 @@
 from flask import render_template, request, Blueprint, Response
 from .logic_conoha import ConoHaToken, ConoHaISO, ConoHaServer
+import json
 
 
 conoha = Blueprint('conoha', __name__, template_folder='templates', static_folder='static')
@@ -53,6 +54,9 @@ def iso():
     elif action == 'unmount_iso':
         unmount_iso_result = conoha_iso.unmount_iso()
         return Response(response=unmount_iso_result, status=200, content_type='application/json')
+    else:
+        forbidden_message = json.dumps({'code': 403, 'message': 'Forbidden'})
+        return Response(response=forbidden_message, status=403, content_type='application/json')
 
 
 @conoha.route('/api/server/', methods=['POST'])
@@ -81,3 +85,6 @@ def server():
     elif action == 'open_vnc_console':
         vnc_url = conoha_server.get_vnc_url()
         return Response(response=vnc_url, status=200, content_type='application/json')
+    else:
+        forbidden_message = json.dumps({'code': 403, 'message': 'Forbidden'})
+        return Response(response=forbidden_message, status=403, content_type='application/json')
