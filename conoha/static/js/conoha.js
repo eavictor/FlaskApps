@@ -76,7 +76,6 @@
                 }
             },
             complete: function(response) {
-                console.log(response);
                 if (action === 'list_iso') {
                     if (response.responseText === 'missing token') {
                         $('#list_iso_info').css('display', '').empty().append(response.responseText);
@@ -195,7 +194,6 @@
                 'action': action
             }),
             success: function(response) {
-                console.log(response);
                 if (action === 'list_servers') {
                     $('#server_list').css('display', '').empty();
                     $.each(response, function(key, value) {
