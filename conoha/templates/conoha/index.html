@@ -27,15 +27,15 @@ ConoHaカスタムOS助手
     <!-- ConoHa API tenant_id, username and password -->
     <div class="form-group">
         <label for="tenant_id">テナントID:</label>
-        <input type="text" class="form-control" name="tenant_id" id="tenant_id" placeholder="テナントID">
+        <input type="text" class="form-control" name="tenant_id" id="tenant_id" autocomplete="off" placeholder="テナントID">
     </div>
     <div class="form-group">
-        <label for="api_username">APIユーザー:</label>
-        <input type="text" class="form-control" name="api_username" id="api_username" placeholder="ユーザー名">
+        <label for="api_id">APIユーザー:</label>
+        <input type="text" class="form-control" name="api_id" id="api_id" autocomplete="off" placeholder="ユーザー名">
     </div>
     <div class="form-group">
-        <label for="api_password">APIパスワード:</label>
-        <input type="password" class="form-control" name="api_password" id="api_password" placeholder="パスワード">
+        <label for="api_pw">APIパスワード:</label>
+        <input type="password" class="form-control" name="api_pw" id="api_pw" autocomplete="off" placeholder="パスワード">
     </div>
 
     <!-- 1. ConoHa Token -->
@@ -52,7 +52,7 @@ ConoHaカスタムOS助手
     <div class="form-group">
         <label for="iso_image_url">ISOイメージURL:</label>
         <span id="download_iso_info" style="display: none; color: #FF0000;"></span>
-        <input type="text" class="form-control" name="iso_image_url" id="iso_image_url" placeholder="ftp:// ftps:// http:// https:// www.example.com/my.iso">
+        <input type="text" class="form-control" name="iso_image_url" id="iso_image_url" autocomplete="off" placeholder="ftp:// ftps:// http:// https:// www.example.com/my.iso">
         <div style="text-align: center">
             <button type="button" class="btn btn-danger" id="download_iso" style="min-width: 250px;" data-toggle="tooltip" data-placement="top" title="A and AAAA DNS records only">2. ISOイメージダウンロード</button>
         </div>

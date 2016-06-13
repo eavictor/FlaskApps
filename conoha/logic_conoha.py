@@ -3,12 +3,11 @@ import json
 
 
 class ConoHaToken:
-    def __init__(self, region='JP', tenant_id=None, tenant_name=None, api_username=None, api_password=None):
+    def __init__(self, region='JP', tenant_id=None, api_id=None, api_pw=None):
         self.region = region
         self.tenant_id = tenant_id
-        self.tenant_name = tenant_name
-        self.api_username = api_username
-        self.api_password = api_password
+        self.api_id = api_id
+        self.api_pw = api_pw
 
     def _get_token_url(self):
         if self.region == 'JP':
@@ -24,7 +23,7 @@ class ConoHaToken:
         token_url = self._get_token_url()
         request_headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
         request_body = json.dumps({'auth': {'passwordCredentials': {
-                        'username': self.api_username, 'password': self.api_password}, 'tenantId': self.tenant_id}})
+                        'username': self.api_id, 'password': self.api_pw}, 'tenantId': self.tenant_id}})
         # post request, get token
         http = requests.Session()
         http.headers.update(request_headers)

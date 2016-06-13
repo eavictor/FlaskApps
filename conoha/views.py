@@ -16,13 +16,9 @@ def get_token():
     content = request.json
     region = content['region']
     tenant_id = content['tenant_id']
-    tenant_name = content['tenant_name']
-    api_username = content['api_username']
-    api_password = content['api_password']
-    conoha_token = ConoHaToken(
-        region=region, tenant_id=tenant_id,
-        tenant_name=tenant_name, api_username=api_username, api_password=api_password
-    )
+    api_id = content['api_id']
+    api_pw = content['api_pw']
+    conoha_token = ConoHaToken(region=region, tenant_id=tenant_id, api_id=api_id, api_pw=api_pw)
     token = conoha_token.get_token()
     return Response(token, 200, content_type='application/json')
 
@@ -30,7 +26,6 @@ def get_token():
 @conoha.route('/api/iso/', methods=['POST'])
 def iso():
     content = request.json
-    print(content)
     region = content['region']
     token = content['token']
     server_id = content['server_id']
@@ -62,7 +57,6 @@ def iso():
 @conoha.route('/api/server/', methods=['POST'])
 def server():
     content = request.json
-    print(content)
     region = content['region']
     tenant_id = content['tenant_id']
     token = content['token']

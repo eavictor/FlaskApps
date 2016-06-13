@@ -11,10 +11,10 @@
         var tenant_id = $('#tenant_id').val();
         // get tenant_name
         var tenant_name = $('#tenant_name').val();
-        // get api_username
-        var api_username = $('#api_username').val();
-        // get api_password
-        var api_password = $('#api_password').val();
+        // get api_id
+        var api_id = $('#api_id').val();
+        // get api_pw
+        var api_pw = $('#api_pw').val();
         // send AJAX request
         $.ajax({
             type: 'POST',
@@ -24,8 +24,8 @@
                 'region': region,
                 'tenant_id': tenant_id,
                 'tenant_name': tenant_name,
-                'api_username': api_username,
-                'api_password': api_password
+                'api_id': api_id,
+                'api_pw': api_pw
             }),
             success: function(response) {
                 $('#token').val(response['token']);
@@ -57,7 +57,6 @@
                 'action': action
             }),
             success: function(response) {
-                console.log(response);
                 if (action === 'download_iso') {
                     if (response['request']['iso-image']['url'] != null) {
                         $('#download_iso_info').css('display', '').empty().append(response['request']['iso-image']['url']).append(' 送信成功');
@@ -79,7 +78,9 @@
             complete: function(response) {
                 console.log(response);
                 if (action === 'list_iso') {
-                  $('#list_iso_info').css('display', '').empty().append(response.responseText);
+                    if (response.responseText === 'missing token') {
+                        $('#list_iso_info').css('display', '').empty().append(response.responseText);
+                    }
                 }
             },
             error: function() {
@@ -218,7 +219,9 @@
             },
             complete: function(response) {
                 if (action === 'list_servers') {
-                    $('#list_servers_info').css('display', '').empty().append(response.responseText);
+                    if (response.responseText === 'missing token') {
+                        $('#list_servers_info').css('display', '').empty().append(response.responseText);
+                    }
                 }
             },
             error: function() {

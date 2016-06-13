@@ -1,8 +1,9 @@
 # FlaskApps
 ### contain apps:
-### 1. geoip: GeoIP list for routers
-### 2. ads: Ad Servers list for routers
-### 3. root: index page
+### 1. ads: Ad Servers list for routers
+### 2. conoha: ConoHa API for download and mount custom ISO
+### 3. geoip: GeoIP list for routers
+### 4. root: index page
 
 Feature list:
 
@@ -18,6 +19,15 @@ There are 2 ways to get API Reference
 ## Installation
 
 #### Ubuntu Server 16.04
+
+00.upgrade ubuntu system packages
+```
+sudo apt-get update && apt-get upgrade -y
+```
+if your server doesn't contains any other things or you just don't care this command may harm your server, you can also execute
+```
+sudo apt-get dist-upgrade
+```
 
 01.reconfigure timezone, just hit enter because this project needs UTC timezone
 ```
@@ -41,7 +51,7 @@ sudo python3 -m pip install --upgrade pip
 sudo pip3 install virtualenv
 ```
 
-06.create project Folder under /home/{username}
+06.create project Folder under /home/[username]
 ```
 mkdir FlaskApps
 cd FlaskApps
@@ -99,20 +109,150 @@ sudo systemctl enable FlaskApps
 13.configure nginx to proxy requests, server name should equals to you the domain name you put in browser or you'll get 404 not found error
 ```
 sudo nano /etc/nginx/sites-available/FlaskApps
-
-copy, replace {username} and {domain/IP} with your username, domain/IP and paste:
+```
+choose one of setting template below, replace [username] and [domain and/or IP] with your username, domain and/or IP and copy paste:
+```
+# http only
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 server {
 	listen 80;
-	server_name {domain/IP};
+	server_name [domain and/or IP];
 	
 	location / {
 		include uwsgi_params;
-		uwsgi_pass unix:/home/{username}/FlaskApps/FlaskApps.sock;
+		uwsgi_pass unix:/home/[username]/FlaskApps/FlaskApps.sock;
 	}
 }
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
+# http with client IP address in header(so we can get client's IP address through nginx proxy)
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+server {
+	listen 80;
+	server_name [domain and/or IP];
+	
+	location / {
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header x-forwarded-for $proxy_add_x_forwarded_for;
+		proxy_set_header host $host;
+		include uwsgi_params;
+		uwsgi_pass unix:/home/[username]/FlaskApps/FlaskApps.sock;
+	}
+}
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+```
+if you need https feature, please upload your certificate (including certificate chain) to /home/[username]/SSL and execute extra commands
+
+Warning: certificate order matters !! also do not put root CA into this command !!
+```
+sudo cat /home/[username]/SSL/[your public crt name].crt /home/[username]/SSL/[domain validation crt name].crt /home/[username]/SSL/[add trust ca crt name].crt > /home/[username]/SSL/[your public crt name].certchain.crt
+sudo chmod -c 400 STAR_eavictor_com.certchain.crt
+sudo chmod -c 400 STAR_eavictor.com.key
+sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+```
+then choose one of setting template below, replace [username] and [domain and/or IP] with your username, domain and/or IP and copy paste:
+```
+# http and https (without auto-redirect to https)
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+server {
+	listen 80;
+	server_name [domain and/or IP];
+	
+	location / {
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header x-forwarded-for $proxy_add_x_forwarded_for;
+		proxy_set_header host $host;
+		include uwsgi_params;
+		uwsgi_pass unix:/home/[username]/FlaskApps/FlaskApps.sock;
+	}
+}
+server {
+	listen 443 http2;
+	ssl on;
+	server_name [domain and/or IP];
+	
+	# SSL certificate
+	ssl_certificate /home/[username]/SSL/[your public crt name].certchain.crt;
+	ssl_certificate_key /home/[username]/[your private key name].key;
+	
+	# Connection credentials caching
+	ssl_session_cache shared:SSL:20m;
+	ssl_session_timeout 60m;
+	
+	# Disable old SSL
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+	
+	# Optimize cipher suites
+	ssl_ciphers "ECDH+AESGCM:ECDH+AES256:ECDH+AES128:DH+3DES:!ADH:!AECDH:!MD5";
+	ssl_prefer_server_ciphers on;
+	ssl_dhparam /etc/ssl/certs/dhparam.pem;
+	
+	ssl_session_tickets off;
+	ssl_stapling on;
+	ssl_stapling_verify on;
+	resolver 8.8.8.8 8.8.4.4 valid=300s;
+	resolver_timeout 5s;
+	
+	add_header Strict-Transport-Security "max-age=63072000; includeSubdomains; preload";
+	add_header X-Frame-Options DENY;
+	add_header X-Content-Type-Options nosniff;
+	
+	location / {
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header x-forwarded-for $proxy_add_x_forwarded_for;
+		proxy_set_header host $host;
+		include uwsgi_params;
+		uwsgi_pass unix:/home/[username]/FlaskApps/FlaskApps.sock;
+    }
+}
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+#http and https(with auto-redirect to https)
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+server {
+	listen 80;
+	server_name [domain and/or IP];
+	return 301 https://$server_name$request_uri;
+}
+server {
+	listen 443 ssl http2;
+	server_name [domain and/or IP];
+	
+	# SSL certificate
+	ssl_certificate /home/[username]/SSL/[your public crt name].certchain.crt;
+	ssl_certificate_key /home/[username]/SSL/[your private key name].key;
+	
+	# Connection credentials caching
+	ssl_session_cache shared:SSL:20m;
+	ssl_session_timeout 60m;
+	
+	# Disable old SSL
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+	
+	# Optimize cipher suites
+	ssl_ciphers "ECDH+AESGCM:ECDH+AES256:ECDH+AES128:DH+3DES:!ADH:!AECDH:!MD5";
+	ssl_prefer_server_ciphers on;
+	ssl_dhparam /etc/ssl/certs/dhparam.pem;
+	
+	ssl_session_tickets off;
+	ssl_stapling on;
+	ssl_stapling_verify on;
+	resolver 8.8.8.8 8.8.4.4 valid=300s;
+	resolver_timeout 5s;
+	
+	add_header Strict-Transport-Security "max-age=63072000; includeSubdomains; preload";
+	add_header X-Frame-Options DENY;
+	add_header X-Content-Type-Options nosniff;
+	
+	location / {
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header x-forwarded-for $proxy_add_x_forwarded_for;
+		# proxy_set_header host $host;
+		include uwsgi_params;
+		uwsgi_pass unix:/home/[username]/FlaskApps/FlaskApps.sock;
+    }
+}
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 ```
 
 14.enable nginx server block
@@ -133,4 +273,13 @@ sudo systemctl restart nginx
 17.configure firewall
 ```
 sudo ufw allow 'Nginx Full'
+```
+
+18.upgrade all ubuntu python packages(maintenance only)
+```
+sudo apt-get update && apt-get upgrade -y
+source /home/[username]/FlaskApps/venv/bin/activate
+python -m pip install --upgrade pip
+pip install --upgrade flask flask-sqlalchemy apscheduler mysqlclient requests uwsgi
+deactivate
 ```
