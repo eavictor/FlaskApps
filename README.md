@@ -73,9 +73,13 @@ python -V
 pip install flask flask-sqlalchemy apscheduler mysqlclient requests uwsgi
 ```
 
-10.deactivate virtualenv
+10.deactivate virtualenv, change to use home dictionary, clone the project and modify SQL settings
 ```
 deactivate
+cd /home/[username]
+git clone https://github.com/eavictor/FlaskApps
+cd ./FlaskApps
+sudo nano settings.py
 ```
 
 11.create systemd unit file
