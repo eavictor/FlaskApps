@@ -9,6 +9,7 @@ Feature list:
 
  * RESTful Server API compatible for all Routers
  * Built in MikroTik RouterOS support
+ * ConoHa custom ISO download API
 
 ## API Reference
 There are 2 ways to get API Reference
@@ -20,69 +21,71 @@ There are 2 ways to get API Reference
 
 #### Ubuntu Server 16.04
 
-00.upgrade ubuntu system packages
+00.Upgrade ubuntu system packages
 ```
 sudo apt-get update && apt-get upgrade -y
 ```
-if your server doesn't contains any other things or you just don't care this command may harm your server, you can also execute
+If your server doesn't contains any other things or you just don't care this command may harm your server, you can also execute
 ```
 sudo apt-get dist-upgrade
 ```
 
-01.reconfigure timezone, just hit enter because this project needs UTC timezone
+01.Clone project from GitHub and edit SQL connection information
 ```
-sudo dpkg-reconfigure tzdata
-```
-
-02.[install and configure MariaDB](https://eavictor.wordpress.com/2016/05/04/install-mariadb-10-1-on-ubuntu-server-16-04-lts-access-from-remote-client/) or other SQLAlchemy supported Databases.
-
-03.install required pacakages, if you don't use MariaDB or MySQL, then you don't have to install libmysqlclient-dev
-```
-sudo apt-get install -y python3 python3-pip python3-dev libmysqlclient-dev nginx
-```
-
-04.upgrade python3-pip
-```
-sudo python3 -m pip install --upgrade pip
-```
-
-05.install python3 virtualenv
-```
-sudo pip3 install virtualenv
-```
-
-06.create project Folder under /home/[username]
-```
-mkdir FlaskApps
-cd FlaskApps
-```
-
-07.create python3 virtualenv and activate the virtualenv just created. you will see (venv) on your command prompt
-```
-python3 -m virtualenv venv
-source venv/bin/activate
-```
-
-08.check virtualenv version. It should be 3.5.1 or newer.
-```
-python -V
-```
-
-09.install python3 packages and uwsgi. If you don't use MariaDB or MySQL, don't install mysqlclient
-```
-pip install flask flask-sqlalchemy apscheduler mysqlclient requests uwsgi
-```
-
-10.deactivate virtualenv, change to use home dictionary, clone the project and modify SQL settings
-```
-deactivate
-cd /home/[username]
 git clone https://github.com/eavictor/FlaskApps
 cd ./FlaskApps
 sudo nano settings.py
 ```
 
-11.create systemd unit file
+02.Reconfigure timezone, just hit enter because this project needs UTC timezone
+```
+sudo dpkg-reconfigure tzdata
+```
+
+03.[Install and configure MariaDB](https://eavictor.wordpress.com/2016/05/04/install-mariadb-10-1-on-ubuntu-server-16-04-lts-access-from-remote-client/) or other SQLAlchemy supported Databases.
+
+04.Install required pacakages, if you don't use MariaDB or MySQL, then you don't have to install libmysqlclient-dev
+```
+sudo apt-get install -y python3 python3-pip python3-dev libmysqlclient-dev nginx
+```
+
+05.Upgrade python3-pip
+```
+sudo python3 -m pip install --upgrade pip
+```
+
+06.Install python3 virtualenv
+```
+sudo pip3 install virtualenv
+```
+
+07.Change dictionary
+```
+cd ./FlaskApps
+```
+
+08.Create python3 virtualenv and activate the virtualenv just created. you will see (venv) on your command prompt
+```
+python3 -m virtualenv venv
+source venv/bin/activate
+```
+
+09.Check virtualenv version. It should be 3.5.1 or newer.
+```
+python -V
+```
+
+10.Install python3 packages and uwsgi. If you don't use MariaDB or MySQL, don't install mysqlclient
+```
+pip install flask flask-sqlalchemy apscheduler mysqlclient requests uwsgi
+```
+
+11.Deactivate virtualenv, change to use home dictionary, clone the project and modify SQL settings
+```
+deactivate
+```
+
+12.Create systemd unit file
 ```
 sudo nano /etc/systemd/system/FlaskApps.service
 
@@ -104,17 +107,17 @@ WantedBy=multi-user.target
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 ```
 
-12.enable FlaskApps
+13.Enable FlaskApps
 ```
 sudo systemctl start FlaskApps
 sudo systemctl enable FlaskApps
 ```
 
-13.configure nginx to proxy requests, server name should equals to you the domain name you put in browser or you'll get 404 not found error
+14.Configure nginx to proxy requests, server name should equals to you the domain name you put in browser or you'll get 404 not found error
 ```
 sudo nano /etc/nginx/sites-available/FlaskApps
 ```
-choose one of setting template below, replace [username] and [domain and/or IP] with your username, domain and/or IP and copy paste:
+Choose one of setting template below, replace [username] and [domain and/or IP] with your username, domain and/or IP and copy paste:
 ```
 # http only
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -145,7 +148,7 @@ server {
 }
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 ```
-if you need https feature, please upload your certificate (including certificate chain) to /home/[username]/SSL and execute extra commands
+If you need https feature, please upload your certificate (including certificate chain) to /home/[username]/SSL and execute extra commands
 
 Warning: certificate order matters !! also do not put root CA into this command !!
 ```
@@ -154,7 +157,7 @@ sudo chmod -c 400 STAR_eavictor_com.certchain.crt
 sudo chmod -c 400 STAR_eavictor.com.key
 sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 ```
-then choose one of setting template below, replace [username] and [domain and/or IP] with your username, domain and/or IP and copy paste:
+Then choose one of setting template below, replace [username] and [domain and/or IP] with your username, domain and/or IP and copy paste:
 ```
 # http and https (without auto-redirect to https)
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -259,27 +262,27 @@ server {
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 ```
 
-14.enable nginx server block
+15.Enable nginx server block
 ```
 sudo ln -s /etc/nginx/sites-available/FlaskApps /etc/nginx/sites-enabled
 ```
 
-15.check nginx syntex
+16.Check nginx syntex
 ```
 sudo nginx -t
 ```
 
-16.restart nginx
+17.Restart nginx
 ```
 sudo systemctl restart nginx
 ```
 
-17.configure firewall
+18.Configure firewall
 ```
 sudo ufw allow 'Nginx Full'
 ```
 
-18.upgrade all ubuntu python packages(maintenance only)
+19.Upgrade all ubuntu python packages(maintenance only)
 ```
 sudo apt-get update && apt-get upgrade -y
 source /home/[username]/FlaskApps/venv/bin/activate
