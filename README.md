@@ -59,33 +59,28 @@ sudo python3 -m pip install --upgrade pip
 sudo pip3 install virtualenv
 ```
 
-07.Change dictionary
-```
-cd ./FlaskApps
-```
-
-08.Create python3 virtualenv and activate the virtualenv just created. you will see (venv) on your command prompt
+07.Create python3 virtualenv and activate the virtualenv just created. you will see (venv) on your command prompt
 ```
 python3 -m virtualenv venv
 source venv/bin/activate
 ```
 
-09.Check virtualenv version. It should be 3.5.1 or newer.
+08.Check virtualenv version. It should be 3.5.1 or newer.
 ```
 python -V
 ```
 
-10.Install python3 packages and uwsgi. If you don't use MariaDB or MySQL, don't install mysqlclient
+09.Install python3 packages and uwsgi. If you don't use MariaDB or MySQL, don't install mysqlclient
 ```
 pip install flask flask-sqlalchemy apscheduler mysqlclient requests uwsgi
 ```
 
-11.Deactivate virtualenv, change to use home dictionary, clone the project and modify SQL settings
+10.Deactivate virtualenv, change to use home dictionary, clone the project and modify SQL settings
 ```
 deactivate
 ```
 
-12.Create systemd unit file
+11.Create systemd unit file
 ```
 sudo nano /etc/systemd/system/FlaskApps.service
 
@@ -107,13 +102,13 @@ WantedBy=multi-user.target
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 ```
 
-13.Enable FlaskApps
+12.Enable FlaskApps
 ```
 sudo systemctl start FlaskApps
 sudo systemctl enable FlaskApps
 ```
 
-14.Configure nginx to proxy requests, server name should equals to you the domain name you put in browser or you'll get 404 not found error
+13.Configure nginx to proxy requests, server name should equals to you the domain name you put in browser or you'll get 404 not found error
 ```
 sudo nano /etc/nginx/sites-available/FlaskApps
 ```
@@ -262,27 +257,27 @@ server {
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 ```
 
-15.Enable nginx server block
+14.Enable nginx server block
 ```
 sudo ln -s /etc/nginx/sites-available/FlaskApps /etc/nginx/sites-enabled
 ```
 
-16.Check nginx syntex
+15.Check nginx syntex
 ```
 sudo nginx -t
 ```
 
-17.Restart nginx
+16.Restart nginx
 ```
 sudo systemctl restart nginx
 ```
 
-18.Configure firewall
+17.Configure firewall
 ```
 sudo ufw allow 'Nginx Full'
 ```
 
-19.Upgrade all ubuntu python packages(maintenance only)
+18.Upgrade all ubuntu python packages(maintenance only)
 ```
 sudo apt-get update && apt-get upgrade -y
 source /home/[username]/FlaskApps/venv/bin/activate
