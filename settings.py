@@ -14,12 +14,12 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 JSONIFY_PRETTYPRINT_REGULAR = False
 
 # default database binding
-SQLALCHEMY_DATABASE_URI = 'mysql://username:password@localhost:3306/geoip'
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:Passw0rd@localhost:3306/geoip'
 
 # multiple database binding
 SQLALCHEMY_BINDS = {
     'geoip': SQLALCHEMY_DATABASE_URI,
-    'ads': 'mysql://username:password@localhost:3306/ads'
+    'ads': 'mysql+pymysql://root:Passw0rd@localhost:3306/ads'
 }
 
 # default MySQL Global wait_timeout

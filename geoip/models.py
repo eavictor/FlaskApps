@@ -114,6 +114,10 @@ def drop_all_tables():
         db.session.rollback()
 
 
+def create_the_database():
+    return None
+
+
 if __name__ == '__main__':
     drop_all_tables()
     create_all_tables()
